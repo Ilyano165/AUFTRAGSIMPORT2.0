@@ -124,11 +124,11 @@ Geprüft mit `tools/gui_screenshots.py` (Offscreen-Rendering, Bilder in `screens
 
 - Die Screenshots entstehen unter Linux mit DejaVu Sans; diese Schrift ist breiter als Segoe UI.
   Unter Windows ist mehr Platz. Eine Sichtprüfung auf echten Windows-10/11-Geräten steht aus.
-- Befund CI (windows-2022, Offscreen-Rendering): Die Liste blendet dort schon bei 940 px
-  „Ansprechpartner“ und selbst bei 1920 × 1040 noch Spalten aus, d. h. die Schrift ist im
-  Offscreen-Modus unter Windows breiter als angenommen. Ob das auch im normalen Fensterbetrieb mit
-  Segoe UI so ist, klärt erst die Sichtprüfung auf echten Geräten. Der Test prüft unter Windows
-  deshalb nur die Ausblendregel (Reihenfolge, Mindestbreite „Firma“) und meldet Schrift und Breite.
+- Offscreen-Rendering unter Windows (CI, Selbsttest): Qt sucht Schriften dort nur im eigenen
+  `lib/fonts` und findet ohne `QT_QPA_FONTDIR` keine; alle Texte werden dann mit Ersatzmaßen etwa
+  doppelt so breit, die Liste bekam bei 1280 × 680 nur 374 px. Workflow, `build-windows.ps1` und
+  `--self-test` setzen deshalb `QT_QPA_FONTDIR` auf `%WINDIR%\Fonts`. Der normale Fensterbetrieb
+  ist davon nicht betroffen.
 - Nur helles Design. Ein dunkles Design ist über die Tokens vorbereitet, aber nicht umgesetzt.
 - Ohne `--demo` startet die Oberfläche noch nicht produktiv: Mail-Abruf und Einrichtung werden
   erst mit der nächsten Iteration angebunden.

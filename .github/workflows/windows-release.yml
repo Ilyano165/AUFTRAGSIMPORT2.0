@@ -37,6 +37,9 @@ env:
   PYTHONHASHSEED: "0"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
   QT_QPA_PLATFORM: offscreen
+  # Offscreen-Qt sucht Schriften sonst nur im eigenen lib/fonts (unter Windows leer) und rechnet
+  # mit Ersatzmaßen; Layouttests und Selbsttest brauchen die echten Windows-Schriften.
+  QT_QPA_FONTDIR: C:\Windows\Fonts
   WIX_VERSION: "5.0.2"
   # Release nur über Tag v… oder manuell; Branch-Pushes und PRs sind immer Testbuilds.
   BUILD_TYPE: ${{ startsWith(github.ref, 'refs/tags/v') && 'release' || inputs.build_type || 'test' }}

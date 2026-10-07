@@ -104,6 +104,7 @@ Write-Host "Projekt: $Root"
 $env:PYTHONHASHSEED = '0'
 $env:PIP_DISABLE_PIP_VERSION_CHECK = '1'
 $env:QT_QPA_PLATFORM = 'offscreen'
+$env:QT_QPA_FONTDIR = Join-Path $env:WINDIR 'Fonts'   # sonst keine Schriften im Offscreen-Modus
 
 if ($null -eq (Get-Command -Name wix -ErrorAction SilentlyContinue)) {
     Stop-Build "WiX fehlt: dotnet tool install --global wix --version $ExpectedWix"

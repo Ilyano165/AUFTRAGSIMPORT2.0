@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import re
-import sys
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFontInfo, QKeySequence
@@ -137,34 +136,40 @@ def _label(widget: QWidget) -> str:
     return str(text())[:40] if callable(text) else ""
 
 
-def _assert_hide_rule(window: MainWindow) -> None:
-    """Regel aus docs/gui/design.md: „Firma“ behält ihre Mindestbreite; Spalten entfallen nur in
-    der Reihenfolge HIDE_ORDER."""
+def _diagnosis(window: MainWindow) -> str:
+    """Schrift, Breiten und die breitesten Elemente der Detailansicht für Fehlermeldungen."""
     table = window.table
-    hidden = [c for c in HIDE_ORDER if table.isColumnHidden(c)]
     detail = window.splitter.widget(1)
     widest = sorted(
         (w.minimumSizeHint().width(), type(w).__name__, w.objectName(), _label(w))
         for w in detail.findChildren(QWidget)
         if w.isVisible() and not any(c.isVisible() for c in w.findChildren(QWidget))
     )[-8:]
-    diagnosis = (
+    hidden = [c.name for c in Column if table.isColumnHidden(c)]
+    return (
         f"Schrift {QFontInfo(table.font()).family()!r} {table.font().pointSizeF()} pt, "
         f"DPI {table.logicalDpiX()}, Breite {table.viewport().width()} px, "
         f"Splitter {window.splitter.sizes()}, Details min {detail.minimumSizeHint().width()} px, "
-        f"breiteste {widest}, ausgeblendet {[c.name for c in hidden]}"
+        f"breiteste {widest}, ausgeblendet {hidden}"
     )
-    assert hidden == list(HIDE_ORDER[: len(hidden)]), diagnosis
-    assert len(hidden) < len(HIDE_ORDER), diagnosis
-    assert table.columnWidth(Column.COMPANY) >= MIN_COMPANY_WIDTH - 2, diagnosis
+
+
+def _assert_hide_rule(window: MainWindow) -> None:
+    """Regel aus docs/gui/design.md: „Firma“ behält ihre Mindestbreite; Spalten entfallen nur in
+    der Reihenfolge HIDE_ORDER."""
+    table = window.table
+    hidden = [c for c in HIDE_ORDER if table.isColumnHidden(c)]
+    assert hidden == list(HIDE_ORDER[: len(hidden)]), _diagnosis(window)
+    assert len(hidden) < len(HIDE_ORDER), _diagnosis(window)
+    assert table.columnWidth(Column.COMPANY) >= MIN_COMPANY_WIDTH - 2, _diagnosis(window)
 
 
 def test_layout_adapts_to_window_size(window: MainWindow, qapp: QApplication) -> None:
     window.resize(940, 640)
     qapp.processEvents()
     assert window.splitter.orientation() is Qt.Orientation.Vertical
-    # Welche Spalten entfallen, hängt von den Schriftmetriken ab (Windows-Offscreen blendet bei
-    # 940 px und sogar bei 1920 px Spalten aus, Linux mit DejaVu Sans nicht).
+    # Welche Spalten bei 940 px entfallen, hängt von den Schriftmetriken ab (Segoe UI unter
+    # Windows, DejaVu Sans/Inter unter Linux); fest steht nur die Ausblendregel.
     _assert_hide_rule(window)
     window.resize(1280, 680)
     qapp.processEvents()
@@ -173,6 +178,4 @@ def test_layout_adapts_to_window_size(window: MainWindow, qapp: QApplication) ->
     window.resize(1920, 1040)
     qapp.processEvents()
     _assert_hide_rule(window)
-    if sys.platform != "win32":
-        # Referenz für die Screenshots in docs/gui (Linux, DejaVu Sans): alles sichtbar.
-        assert not any(window.table.isColumnHidden(c) for c in Column)
+    assert not any(window.table.isColumnHidden(c) for c in Column), _diagnosis(window)

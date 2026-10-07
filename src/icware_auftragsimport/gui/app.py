@@ -280,6 +280,9 @@ def self_test(output: Path | None = None) -> int:
     """Prüft das fertige Programm ohne Fenster: Laufzeit, Ressourcen, Datenbank, Anmeldespeicher,
     TLS, Mail-Abruf, Oberfläche."""
     os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+    if os.name == "nt" and "WINDIR" in os.environ:
+        # Offscreen-Qt kennt unter Windows sonst keine Schriften (Ersatzmaße, falsche Layouts).
+        os.environ.setdefault("QT_QPA_FONTDIR", os.path.join(os.environ["WINDIR"], "Fonts"))
     results: list[Check] = []
     runtime = check_runtime()
     results.append(
