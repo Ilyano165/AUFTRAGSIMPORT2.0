@@ -6,7 +6,7 @@ import re
 import sys
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QKeySequence
+from PySide6.QtGui import QFontInfo, QKeySequence
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QAbstractButton, QApplication, QLabel, QTabBar, QWidget
 
@@ -132,14 +132,27 @@ def test_export_dialog_summary_then_results(window: MainWindow) -> None:
     dialog.close()
 
 
+def _label(widget: QWidget) -> str:
+    text = getattr(widget, "text", None)
+    return str(text())[:40] if callable(text) else ""
+
+
 def _assert_hide_rule(window: MainWindow) -> None:
     """Regel aus docs/gui/design.md: „Firma“ behält ihre Mindestbreite; Spalten entfallen nur in
     der Reihenfolge HIDE_ORDER."""
     table = window.table
     hidden = [c for c in HIDE_ORDER if table.isColumnHidden(c)]
+    detail = window.splitter.widget(1)
+    widest = sorted(
+        (w.minimumSizeHint().width(), type(w).__name__, w.objectName(), _label(w))
+        for w in detail.findChildren(QWidget)
+        if w.isVisible() and not any(c.isVisible() for c in w.findChildren(QWidget))
+    )[-8:]
     diagnosis = (
-        f"Schrift {table.font().family()!r} {table.font().pointSizeF()} pt, "
-        f"Breite {table.viewport().width()} px, ausgeblendet {[c.name for c in hidden]}"
+        f"Schrift {QFontInfo(table.font()).family()!r} {table.font().pointSizeF()} pt, "
+        f"DPI {table.logicalDpiX()}, Breite {table.viewport().width()} px, "
+        f"Splitter {window.splitter.sizes()}, Details min {detail.minimumSizeHint().width()} px, "
+        f"breiteste {widest}, ausgeblendet {[c.name for c in hidden]}"
     )
     assert hidden == list(HIDE_ORDER[: len(hidden)]), diagnosis
     assert len(hidden) < len(HIDE_ORDER), diagnosis
