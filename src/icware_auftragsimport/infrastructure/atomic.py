@@ -75,10 +75,13 @@ def _publish_at(directory_fd: int, temp_name: str, name: str) -> None:
 
 def _create_via_directory_handle(directory: Path, name: str, data: bytes) -> None:
     """POSIX: alle Schritte relativ zu einem geöffneten Ordner, ohne Symlinks zu folgen."""
-    directory_fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    # O_DIRECTORY/O_NOFOLLOW gibt es nur unter POSIX; der Aufrufer prüft das (hasattr).
+    # Die Typprüfung läuft auch für Windows, daher plattformneutrale Ignore-Codes.
+    posix = os.O_DIRECTORY | os.O_NOFOLLOW  # type: ignore[attr-defined,unused-ignore]
+    directory_fd = os.open(directory, os.O_RDONLY | posix)
     temp_name = f"{TEMP_PREFIX}{secrets.token_hex(8)}{TEMP_SUFFIX}"
     try:
-        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW
+        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW  # type: ignore[attr-defined,unused-ignore]
         fd = os.open(temp_name, flags, 0o600, dir_fd=directory_fd)
         try:
             with os.fdopen(fd, "wb") as handle:

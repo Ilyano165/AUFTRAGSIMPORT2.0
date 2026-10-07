@@ -100,7 +100,7 @@ def is_network_path(path_text: str) -> bool:
     try:
         import ctypes  # noqa: PLC0415
 
-        kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined]
+        kernel32 = ctypes.windll.kernel32  # type: ignore[attr-defined,unused-ignore]
         return int(kernel32.GetDriveTypeW(f"{path_text[0]}:\\")) == _DRIVE_REMOTE
     except (AttributeError, OSError):
         return False

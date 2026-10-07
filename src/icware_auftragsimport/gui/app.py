@@ -64,7 +64,7 @@ def set_windows_identity() -> None:
     try:
         import ctypes  # noqa: PLC0415
 
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APP_USER_MODEL_ID)  # type: ignore[attr-defined]
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APP_USER_MODEL_ID)  # type: ignore[attr-defined,unused-ignore]
     except (AttributeError, OSError):
         return
 
