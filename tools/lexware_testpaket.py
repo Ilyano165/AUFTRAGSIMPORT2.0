@@ -49,11 +49,15 @@ def generate(root: Path) -> None:
     reference = root / "integration" / "lexware" / "reference" / "248090.xml"
     analysis = analyze_reference(reference.read_bytes(), spec)
     (docs / "referenzanalyse.json").write_text(
-        json.dumps({"248090.xml": analysis}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps({"248090.xml": analysis}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
-    (docs / "integrationstest.md").write_text(render_test_plan(overview, spec), encoding="utf-8")
+    (docs / "integrationstest.md").write_text(
+        render_test_plan(overview, spec), encoding="utf-8", newline="\n"
+    )
     (docs / "export-spezifikation.md").write_text(
-        render_spec_document(spec, analysis), encoding="utf-8"
+        render_spec_document(spec, analysis), encoding="utf-8", newline="\n"
     )
 
 

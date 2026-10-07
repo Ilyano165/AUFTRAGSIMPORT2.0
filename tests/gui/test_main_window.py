@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import sys
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QKeySequence
@@ -131,21 +132,34 @@ def test_export_dialog_summary_then_results(window: MainWindow) -> None:
     dialog.close()
 
 
+def _assert_hide_rule(window: MainWindow) -> None:
+    """Regel aus docs/gui/design.md: „Firma“ behält ihre Mindestbreite; Spalten entfallen nur in
+    der Reihenfolge HIDE_ORDER."""
+    table = window.table
+    hidden = [c for c in HIDE_ORDER if table.isColumnHidden(c)]
+    diagnosis = (
+        f"Schrift {table.font().family()!r} {table.font().pointSizeF()} pt, "
+        f"Breite {table.viewport().width()} px, ausgeblendet {[c.name for c in hidden]}"
+    )
+    assert hidden == list(HIDE_ORDER[: len(hidden)]), diagnosis
+    assert len(hidden) < len(HIDE_ORDER), diagnosis
+    assert table.columnWidth(Column.COMPANY) >= MIN_COMPANY_WIDTH - 2, diagnosis
+
+
 def test_layout_adapts_to_window_size(window: MainWindow, qapp: QApplication) -> None:
     window.resize(940, 640)
     qapp.processEvents()
     assert window.splitter.orientation() is Qt.Orientation.Vertical
-    # Welche Spalten bei 940 px entfallen, hängt von den Schriftmetriken der Plattform ab
-    # (Windows blendet „Ansprechpartner“ aus, Linux nicht). Fest steht laut docs/gui/design.md:
-    # „Firma“ behält ihre Mindestbreite, und Spalten entfallen nur in der Reihenfolge HIDE_ORDER.
-    hidden = [c for c in HIDE_ORDER if window.table.isColumnHidden(c)]
-    assert hidden == list(HIDE_ORDER[: len(hidden)])
-    assert len(hidden) < len(HIDE_ORDER)
-    assert window.table.columnWidth(Column.COMPANY) >= MIN_COMPANY_WIDTH - 2
+    # Welche Spalten entfallen, hängt von den Schriftmetriken ab (Windows-Offscreen blendet bei
+    # 940 px und sogar bei 1920 px Spalten aus, Linux mit DejaVu Sans nicht).
+    _assert_hide_rule(window)
     window.resize(1280, 680)
     qapp.processEvents()
     assert window.splitter.orientation() is Qt.Orientation.Horizontal
-    assert window.table.columnWidth(Column.COMPANY) >= MIN_COMPANY_WIDTH - 2
+    _assert_hide_rule(window)
     window.resize(1920, 1040)
     qapp.processEvents()
-    assert not any(window.table.isColumnHidden(c) for c in Column)
+    _assert_hide_rule(window)
+    if sys.platform != "win32":
+        # Referenz für die Screenshots in docs/gui (Linux, DejaVu Sans): alles sichtbar.
+        assert not any(window.table.isColumnHidden(c) for c in Column)

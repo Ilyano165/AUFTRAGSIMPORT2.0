@@ -377,7 +377,7 @@ def write_package(directory: Path, profile: ImportProfile) -> list[dict[str, obj
             },
         }
         (folder / "input.json").write_text(
-            json.dumps(entry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            json.dumps(entry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
         )
         overview.append(
             entry

@@ -124,6 +124,11 @@ Geprüft mit `tools/gui_screenshots.py` (Offscreen-Rendering, Bilder in `screens
 
 - Die Screenshots entstehen unter Linux mit DejaVu Sans; diese Schrift ist breiter als Segoe UI.
   Unter Windows ist mehr Platz. Eine Sichtprüfung auf echten Windows-10/11-Geräten steht aus.
+- Befund CI (windows-2022, Offscreen-Rendering): Die Liste blendet dort schon bei 940 px
+  „Ansprechpartner“ und selbst bei 1920 × 1040 noch Spalten aus, d. h. die Schrift ist im
+  Offscreen-Modus unter Windows breiter als angenommen. Ob das auch im normalen Fensterbetrieb mit
+  Segoe UI so ist, klärt erst die Sichtprüfung auf echten Geräten. Der Test prüft unter Windows
+  deshalb nur die Ausblendregel (Reihenfolge, Mindestbreite „Firma“) und meldet Schrift und Breite.
 - Nur helles Design. Ein dunkles Design ist über die Tokens vorbereitet, aber nicht umgesetzt.
 - Ohne `--demo` startet die Oberfläche noch nicht produktiv: Mail-Abruf und Einrichtung werden
   erst mit der nächsten Iteration angebunden.
