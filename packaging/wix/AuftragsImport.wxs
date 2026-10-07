@@ -40,7 +40,7 @@
     <Property Id="ARPPRODUCTICON" Value="AppIcon.ico" />
     <Property Id="ARPURLINFOABOUT" Value="https://ic-ware.eu" />
     <Property Id="ARPCONTACT" Value="$(var.SupportContact)" />
-    <Property Id="ARPNOMODIFY" Value="1" />
+    <!-- ARPNOMODIFY="1" setzt WixUI_InstallDir selbst; eine eigene Definition ergibt WIX0091. -->
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
 
     <StandardDirectory Id="ProgramFiles64Folder">
