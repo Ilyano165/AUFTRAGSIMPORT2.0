@@ -1,0 +1,11 @@
+# Zeilenenden byte-genau wie eingecheckt, auch beim Checkout unter Windows (core.autocrlf).
+# Erzeugte Dateien (docs/lexware, Integrationsfälle) werden in Tests byteweise verglichen.
+* text=auto eol=lf
+
+# Absichtlich CRLF: Lexware-Testdateien/Referenz (Exportformat) und das PowerShell-Skript.
+integration/lexware/**/*.xml -text
+*.ps1 -text
+
+*.png binary
+*.ico binary
+*.zip binary

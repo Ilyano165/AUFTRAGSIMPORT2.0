@@ -138,6 +138,10 @@ def test_fetch_check_runs_the_complete_pipeline(tmp_path: Path) -> None:
 def test_self_test_command_reports_every_check(tmp_path: Path) -> None:
     report = tmp_path / "selbsttest.txt"
     env = {**os.environ, "QT_QPA_PLATFORM": "offscreen", "PYTHONPATH": str(ROOT / "src")}
+    if sys.platform == "win32":
+        # Wie die fertige EXE: echter Anmeldespeicher (nur ein Testeintrag, der wieder gelöscht
+        # wird) statt des flüchtigen Speichers aus conftest.py.
+        env.pop("PYTHON_KEYRING_BACKEND", None)
     result = subprocess.run(
         [sys.executable, "-m", "icware_auftragsimport", "--self-test", "--output", str(report)],
         env=env,
@@ -146,6 +150,7 @@ def test_self_test_command_reports_every_check(tmp_path: Path) -> None:
         timeout=120,
         check=False,
     )
+    assert report.exists(), result.stderr.decode(errors="replace")[-2000:]
     lines = report.read_text(encoding="utf-8").splitlines()
     checks = {line[7:].split(":")[0]: line[:6].strip() for line in lines}
     expected = {
@@ -167,9 +172,19 @@ def test_self_test_command_reports_every_check(tmp_path: Path) -> None:
 
 
 @pytest.mark.skipif(sys.platform != "win32", reason="NOT TESTED – WINDOWS REQUIRED")
-def test_windows_credential_manager_round_trip() -> None:
+def test_windows_credential_manager_round_trip(monkeypatch: pytest.MonkeyPatch) -> None:
     """Nur unter Windows: echter Eintrag in der Anmeldeinformationsverwaltung."""
-    _name, ok, detail = credential_check()
+    import keyring.core  # noqa: PLC0415
+    from keyring.backends import fail  # noqa: PLC0415
+
+    # conftest.py erzwingt den Fail-Speicher; hier bewusst die echte Erkennung (Testeintrag wird
+    # wieder gelöscht). keyring merkt sich das Backend prozessweit, daher danach zurücksetzen.
+    monkeypatch.delenv("PYTHON_KEYRING_BACKEND", raising=False)
+    keyring.core.init_backend()
+    try:
+        _name, ok, detail = credential_check()
+    finally:
+        keyring.core.set_keyring(fail.Keyring())
     assert ok, detail
     assert detail.startswith("WinVaultKeyring")
 

@@ -16,9 +16,14 @@ from icware_auftragsimport.infrastructure import atomic
 from icware_auftragsimport.infrastructure.clock import FixedClock
 from icware_auftragsimport.infrastructure.db import Database, transaction
 from icware_auftragsimport.infrastructure.repositories import ExportJobRepository, OrderRepository
+from icware_auftragsimport.security.fs import DirectoryIdentity
 from icware_auftragsimport.services import export_service
 from icware_auftragsimport.services.export_recovery import ExportRecovery
-from icware_auftragsimport.services.export_service import ExportResult, ExportService
+from icware_auftragsimport.services.export_service import (
+    ExportBlocked,
+    ExportResult,
+    ExportService,
+)
 from support import EXPORT_PROFILE, approved_order
 
 ORDER_ID = "order-0001"
@@ -259,6 +264,36 @@ def test_recovery_never_reexports_missing_file(
     assert action.new_state is ExportJobState.FAILED
     assert OrderRepository(conn).get(ORDER_ID).status is OrderStatus.FAILED
     assert _files(dirs[0]) == []
+
+
+# Windows: st_dev/st_ino sind vorzeichenlos 64 bzw. bis 128 Bit (Werte vom Windows-Runner).
+WINDOWS_DEVICE = 10116456482831564288
+WINDOWS_INODE = 2**127 + 12345
+
+
+def test_directory_pin_keeps_windows_sized_identities(
+    conn: sqlite3.Connection, clock: FixedClock
+) -> None:
+    service = _service(conn, clock)
+    identity = DirectoryIdentity(r"C:\Lexware\Import", WINDOWS_DEVICE, WINDOWS_INODE)
+    service._verify_pin("standard", identity)
+    service._verify_pin("standard", identity)  # unverändert: kein Abbruch
+    with pytest.raises(ExportBlocked):
+        service._verify_pin("standard", replace(identity, inode=WINDOWS_INODE + 1))
+
+
+def test_directory_pin_reads_integer_rows_of_earlier_versions(
+    conn: sqlite3.Connection, clock: FixedClock
+) -> None:
+    with transaction(conn):
+        conn.execute(
+            "INSERT INTO directory_pins (profile_id, purpose, path, device, inode, pinned_at) "
+            "VALUES ('standard', 'export', '/srv/lexware', 64769, 1234567, '2026-10-01')"
+        )
+    service = _service(conn, clock)
+    service._verify_pin("standard", DirectoryIdentity("/srv/lexware", 64769, 1234567))
+    with pytest.raises(ExportBlocked):
+        service._verify_pin("standard", DirectoryIdentity("/srv/lexware", 64769, 7654321))
 
 
 def test_atomic_create_never_replaces(tmp_path: Path) -> None:

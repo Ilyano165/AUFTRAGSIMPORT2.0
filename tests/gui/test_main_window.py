@@ -14,7 +14,7 @@ from icware_auftragsimport.domain.status import OrderStatus
 from icware_auftragsimport.gui.detail import ISSUE_ROLE
 from icware_auftragsimport.gui.export_dialog import ExportDialog
 from icware_auftragsimport.gui.main_window import MainWindow
-from icware_auftragsimport.gui.order_table import MIN_COMPANY_WIDTH, Column
+from icware_auftragsimport.gui.order_table import HIDE_ORDER, MIN_COMPANY_WIDTH, Column
 
 FORBIDDEN = re.compile(
     r"\bKI\b|künstlich|Intelligenz|\bAI\b(?!-\d)|Chatbot|Assistent", re.IGNORECASE
@@ -135,7 +135,13 @@ def test_layout_adapts_to_window_size(window: MainWindow, qapp: QApplication) ->
     window.resize(940, 640)
     qapp.processEvents()
     assert window.splitter.orientation() is Qt.Orientation.Vertical
-    assert not window.table.isColumnHidden(Column.CONTACT)
+    # Welche Spalten bei 940 px entfallen, hängt von den Schriftmetriken der Plattform ab
+    # (Windows blendet „Ansprechpartner“ aus, Linux nicht). Fest steht laut docs/gui/design.md:
+    # „Firma“ behält ihre Mindestbreite, und Spalten entfallen nur in der Reihenfolge HIDE_ORDER.
+    hidden = [c for c in HIDE_ORDER if window.table.isColumnHidden(c)]
+    assert hidden == list(HIDE_ORDER[: len(hidden)])
+    assert len(hidden) < len(HIDE_ORDER)
+    assert window.table.columnWidth(Column.COMPANY) >= MIN_COMPANY_WIDTH - 2
     window.resize(1280, 680)
     qapp.processEvents()
     assert window.splitter.orientation() is Qt.Orientation.Horizontal

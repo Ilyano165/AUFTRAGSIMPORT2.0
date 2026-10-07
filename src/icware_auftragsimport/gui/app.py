@@ -295,7 +295,11 @@ def self_test(output: Path | None = None) -> int:
         results.append(("Lexware-Spezifikation", True, load_spec().__class__.__name__))
     except (AppError, OSError, ValueError) as exc:
         results.append(("Lexware-Spezifikation", False, type(exc).__name__))
-    with tempfile.TemporaryDirectory(prefix="icware-selbsttest-") as folder:
+    # Unter Windows lassen sich noch geöffnete Dateien (SQLite der Demo) nicht löschen; das
+    # Aufräumen darf den Bericht nicht verhindern.
+    with tempfile.TemporaryDirectory(
+        prefix="icware-selbsttest-", ignore_cleanup_errors=True
+    ) as folder:
         database = Database(Path(folder) / "test.db")
         conn = database.connect()
         version = database.migrate(conn)

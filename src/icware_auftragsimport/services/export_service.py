@@ -144,6 +144,22 @@ def _blocked(what: str, why: str, action: str) -> ExportBlocked:
     )
 
 
+# Ordnerkennungen (st_dev/st_ino) sind unter Windows bis 128 Bit groß; SQLite-INTEGER fasst nur
+# 64 Bit mit Vorzeichen und würde reine Ziffernfolgen verlustbehaftet in REAL umwandeln. Deshalb
+# als Text mit Präfix; ältere Einträge (Ganzzahl) bleiben lesbar.
+_ID_PREFIX = "id:"
+
+
+def _encode_id(value: int) -> str:
+    return f"{_ID_PREFIX}{value}"
+
+
+def _decode_id(stored: object) -> int:
+    if isinstance(stored, str) and stored.startswith(_ID_PREFIX):
+        return int(stored.removeprefix(_ID_PREFIX))
+    return int(str(stored))
+
+
 def separated(export_dir: Path, test_dir: Path) -> bool:
     """True, wenn Test- und Produktivordner verschieden sind und nicht ineinander liegen."""
     live, test = export_dir.resolve(), test_dir.resolve()
@@ -263,14 +279,15 @@ class ExportService:
                 self._conn.execute(
                     "INSERT INTO directory_pins (profile_id, purpose, path, device, inode, "
                     "pinned_at) VALUES (?, ?, ?, ?, ?, ?)",
-                    (profile_id, PIN_PURPOSE, identity.path, identity.device, identity.inode,
-                     now.isoformat()),
+                    (profile_id, PIN_PURPOSE, identity.path, _encode_id(identity.device),
+                     _encode_id(identity.inode), now.isoformat()),
                 )  # fmt: skip
                 JournalRepository(self._conn).append(
                     "profile", profile_id, "export_dir_pinned", now, {}
                 )
             return
-        if (row[0], int(row[1]), int(row[2])) != (identity.path, identity.device, identity.inode):
+        stored = (row[0], _decode_id(row[1]), _decode_id(row[2]))
+        if stored != (identity.path, identity.device, identity.inode):
             raise _blocked(
                 "Der Lexware-Importordner hat sich verändert",
                 "Die Ordnerkennung weicht von der bestätigten ab (anderer Ordner, anderes Laufwerk "
