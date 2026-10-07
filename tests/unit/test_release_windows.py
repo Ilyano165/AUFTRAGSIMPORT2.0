@@ -277,3 +277,13 @@ def test_property_table_output_is_parsed() -> None:
         "ProductVersion": "2.0.0",
         "Leer": "",
     }
+
+
+def test_windows_powershell_does_not_inherit_ps7_module_path(tmp_path: Path) -> None:
+    """Run 8 auf windows-2022: Get-AuthenticodeSignature fand sein Modul nicht, weil
+    PowerShell 5.1 den PSModulePath von PowerShell 7 erbte."""
+    base = {"PSModulePath": r"C:\Program Files\PowerShell\7\Modules", "PATH": "x"}
+    env = build.powershell_env(tmp_path / "a.msi", base)
+    assert not any(key.upper() == "PSMODULEPATH" for key in env)
+    assert env["PATH"] == "x" and env["ICW_MSI"] == str(tmp_path / "a.msi")
+    assert "PSModulePath" in base  # Eingabe bleibt unverändert

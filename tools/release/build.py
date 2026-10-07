@@ -431,6 +431,20 @@ def upgrade_code() -> str:
     return match.group(1).upper()
 
 
+def powershell_env(path: Path, base: dict[str, str] | None = None) -> dict[str, str]:
+    """Umgebung für Windows PowerShell 5.1 (``powershell``).
+
+    Aus PowerShell 7 (Standard-Shell der GitHub-Runner) geerbt zeigt ``PSModulePath`` auf die
+    PS7-Module; 5.1 kann dann u. a. ``Microsoft.PowerShell.Security`` (Get-AuthenticodeSignature)
+    nicht laden. Ohne die Variable setzt 5.1 seinen eigenen Pfad.
+    """
+    env = dict(os.environ if base is None else base)
+    for key in [k for k in env if k.upper() == "PSMODULEPATH"]:
+        del env[key]
+    env["ICW_MSI"] = str(path)
+    return env
+
+
 def _powershell(script: str, path: Path) -> str:
     """Führt ein PowerShell-Skript aus; der Dateipfad kommt über ``ICW_MSI`` (kein Quoting)."""
     if not WINDOWS:
@@ -448,7 +462,7 @@ def _powershell(script: str, path: Path) -> str:
         ],
         capture_output=True,
         text=True,
-        env={**os.environ, "ICW_MSI": str(path)},
+        env=powershell_env(path),
         timeout=120,
         check=False,
     )
