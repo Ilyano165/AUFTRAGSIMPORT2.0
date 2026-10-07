@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ORDER_LIST>
+  <ORDER xmlns="http://www.opentrans.org/XMLSchema/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" type="standard">
+    <ORDER_HEADER>
+      <CONTROL_INFO>
+        <GENERATOR_INFO><![CDATA[IC-Ware Auftrags-Import 2.0.0]]></GENERATOR_INFO>
+        <GENERATOR_DATE><![CDATA[2026-10-01 09:00:00]]></GENERATOR_DATE>
+      </CONTROL_INFO>
+      <ORDER_INFO>
+        <ORDER_ID><![CDATA[IT-09]]></ORDER_ID>
+        <ORDER_DATE><![CDATA[2026-10-01 00:00:00]]></ORDER_DATE>
+        <ORDER_PARTIES>
+          <BUYER_PARTY>
+            <PARTY>
+              <ADDRESS>
+                <NAME><![CDATA[Testkunde Lexware GmbH]]></NAME>
+                <NAME2><![CDATA[Mustermann]]></NAME2>
+                <NAME3><![CDATA[Erika]]></NAME3>
+                <STREET><![CDATA[Teststraße 1]]></STREET>
+                <CITY><![CDATA[Köln]]></CITY>
+                <ZIP><![CDATA[50667]]></ZIP>
+                <COUNTRY><![CDATA[Deutschland]]></COUNTRY>
+                <PHONE><![CDATA[0221 000000]]></PHONE>
+                <FAX><![CDATA[]]></FAX>
+                <EMAIL><![CDATA[einkauf@testkunde.invalid]]></EMAIL>
+                <VAT_ID><![CDATA[]]></VAT_ID>
+              </ADDRESS>
+            </PARTY>
+          </BUYER_PARTY>
+          <INVOICE_PARTY>
+            <PARTY>
+              <ADDRESS>
+                <NAME><![CDATA[Testkunde Lexware GmbH]]></NAME>
+                <NAME2><![CDATA[Mustermann]]></NAME2>
+                <NAME3><![CDATA[Erika]]></NAME3>
+                <STREET><![CDATA[Teststraße 1]]></STREET>
+                <CITY><![CDATA[Köln]]></CITY>
+                <ZIP><![CDATA[50667]]></ZIP>
+                <COUNTRY><![CDATA[Deutschland]]></COUNTRY>
+                <PHONE><![CDATA[0221 000000]]></PHONE>
+                <FAX><![CDATA[]]></FAX>
+                <EMAIL><![CDATA[einkauf@testkunde.invalid]]></EMAIL>
+                <VAT_ID><![CDATA[]]></VAT_ID>
+              </ADDRESS>
+            </PARTY>
+          </INVOICE_PARTY>
+          <SUPPLIER_PARTY>
+            <PARTY>
+              <ADDRESS>
+                <NAME><![CDATA[IC-Ware Testlieferant]]></NAME>
+                <NAME2><![CDATA[]]></NAME2>
+                <NAME3><![CDATA[]]></NAME3>
+                <STREET><![CDATA[Testweg 1]]></STREET>
+                <CITY><![CDATA[Windeck]]></CITY>
+                <ZIP><![CDATA[51570]]></ZIP>
+                <COUNTRY><![CDATA[Deutschland]]></COUNTRY>
+                <PHONE><![CDATA[]]></PHONE>
+                <FAX><![CDATA[]]></FAX>
+                <EMAIL><![CDATA[]]></EMAIL>
+                <VAT_ID><![CDATA[]]></VAT_ID>
+              </ADDRESS>
+            </PARTY>
+          </SUPPLIER_PARTY>
+        </ORDER_PARTIES>
+        <PAYMENT>
+          <CASH>
+            <PAYMENT_TERM TYPE="unece"><![CDATA[10]]></PAYMENT_TERM>
+          </CASH>
+        </PAYMENT>
+      </ORDER_INFO>
+    </ORDER_HEADER>
+    <ORDER_ITEM_LIST>
+      <ORDER_ITEM>
+        <LINE_ITEM_ID><![CDATA[1]]></LINE_ITEM_ID>
+        <ARTICLE_ID>
+          <SUPPLIER_AID><![CDATA[GIBT-ES-NICHT-99]]></SUPPLIER_AID>
+        </ARTICLE_ID>
+        <QUANTITY><![CDATA[1]]></QUANTITY>
+        <ORDER_UNIT><![CDATA[]]></ORDER_UNIT>
+        <ARTICLE_PRICE type="net_list">
+          <PRICE_AMOUNT><![CDATA[10.00]]></PRICE_AMOUNT>
+          <PRICE_LINE_AMOUNT><![CDATA[10.00]]></PRICE_LINE_AMOUNT>
+          <TAX><![CDATA[0.19]]></TAX>
+        </ARTICLE_PRICE>
+      </ORDER_ITEM>
+    </ORDER_ITEM_LIST>
+  </ORDER>
+</ORDER_LIST>

@@ -1,0 +1,1 @@
+"""Einstellungen: Firmenprofile und Artikelkatalog."""

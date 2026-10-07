@@ -1,0 +1,25 @@
+{
+  "test": "08e",
+  "title": "Zahlungsart Bankeinzug",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "IT-2026-00008e.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [
+    "EXP_NO_BANK_DATA: Bankeinzug wird ohne Bankdaten übergeben; das Lastschriftmandat muss in Lexware hinterlegt sein (OQ-12)",
+    "EXP_PRICE_FROM_CATALOG: Preis aus dem Artikelkatalog für Position(en) 1; Lexware übernimmt Preise aus der Datei als manuelle Positionspreise"
+  ],
+  "open_questions": [
+    "OQ-12"
+  ],
+  "input": {
+    "document_number": "IT-2026-00008e",
+    "customer_reference": "IT-08e",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Lastschrift",
+    "lines": 1
+  }
+}

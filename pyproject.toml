@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "icware-auftragsimport"
+dynamic = ["version"]
+description = "IC-Ware Auftrags-Import: Bestellmails regelbasiert erfassen, prüfen und für Lexware exportieren."
+readme = "README.md"
+requires-python = ">=3.12.6"
+authors = [{ name = "IC-Ware" }]
+license = { text = "Proprietär" }
+dependencies = ["defusedxml==0.7.1"]
+
+[project.optional-dependencies]
+windows = ["keyring==25.7.0"]
+gui = ["PySide6==6.11.2"]
+dev = [
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "mypy==2.4.0",
+    "ruff==0.16.10",
+    "types-defusedxml==0.7.0.20260504",
+    "pip-audit==2.10.1",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "icware_auftragsimport.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"icware_auftragsimport.export.lexware" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q --strict-markers -p no:cacheprovider"
+
+[tool.coverage.run]
+branch = true
+source = ["icware_auftragsimport"]
+omit = ["*/gui/*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "PL", "C90"]
+ignore = ["PLR2004", "PLR0913", "RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["PLR0915", "S101"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+packages = ["icware_auftragsimport"]
+
+[project.gui-scripts]
+icware-auftragsimport-gui = "icware_auftragsimport.gui.app:main"

@@ -1,0 +1,23 @@
+{
+  "test": "02",
+  "title": "Mehrere Positionen",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "IT-2026-000002.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [],
+  "open_questions": [
+    "OQ-05",
+    "OQ-18"
+  ],
+  "input": {
+    "document_number": "IT-2026-000002",
+    "customer_reference": "IT-02",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Rechnung",
+    "lines": 3
+  }
+}

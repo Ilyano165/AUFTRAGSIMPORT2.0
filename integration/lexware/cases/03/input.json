@@ -1,0 +1,25 @@
+{
+  "test": "03",
+  "title": "Lieferadresse abweichend",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "IT-2026-000003.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [
+    "EXP_DELIVERY_ADDRESS_BEHAVIOUR: Abweichende Lieferanschrift wird als BUYER_PARTY übergeben; Lexware ergänzt Lieferanschriften bestehender Kunden nur und überschreibt sie nie (OQ-07)",
+    "EXP_PRICE_FROM_CATALOG: Preis aus dem Artikelkatalog für Position(en) 1; Lexware übernimmt Preise aus der Datei als manuelle Positionspreise"
+  ],
+  "open_questions": [
+    "OQ-07"
+  ],
+  "input": {
+    "document_number": "IT-2026-000003",
+    "customer_reference": "IT-03",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": false,
+    "payment": "Rechnung",
+    "lines": 1
+  }
+}

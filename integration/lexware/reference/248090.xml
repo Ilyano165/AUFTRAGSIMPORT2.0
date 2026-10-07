@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ORDER_LIST>
+  <ORDER xmlns="http://www.opentrans.org/XMLSchema/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" type="standard">
+    <ORDER_HEADER>
+      <CONTROL_INFO>
+        <GENERATOR_INFO><![CDATA[Shop 2.0]]></GENERATOR_INFO>
+        <GENERATOR_DATE><![CDATA[2021-05-10 00:00:00]]></GENERATOR_DATE>
+      </CONTROL_INFO>
+      <ORDER_INFO>
+        <ORDER_ID><![CDATA[248090]]></ORDER_ID>
+        <ORDER_DATE><![CDATA[2021-05-10 16:31:25]]></ORDER_DATE>
+        <ORDER_PARTIES>
+          <BUYER_PARTY>
+            <PARTY>
+              <ADDRESS>
+                <NAME><![CDATA[Yellotools GmbH]]></NAME>
+                <NAME2><![CDATA[Althoff]]></NAME2>
+                <NAME3><![CDATA[Michael]]></NAME3>
+                <STREET><![CDATA[Wilberhofener Str. 3]]></STREET>
+                <CITY><![CDATA[Windeck]]></CITY>
+                <ZIP><![CDATA[51570]]></ZIP>
+                <COUNTRY><![CDATA[Deutschland]]></COUNTRY>
+                <PHONE><![CDATA[02292/921228]]></PHONE>
+                <FAX><![CDATA[]]></FAX>
+                <EMAIL><![CDATA[info@yellotools.com]]></EMAIL>
+                <VAT_ID><![CDATA[]]></VAT_ID>
+              </ADDRESS>
+            </PARTY>
+          </BUYER_PARTY>
+          <INVOICE_PARTY>
+            <PARTY>
+              <ADDRESS>
+                <NAME><![CDATA[Yellotools GmbH]]></NAME>
+                <NAME2><![CDATA[Althoff]]></NAME2>
+                <NAME3><![CDATA[Michael]]></NAME3>
+                <STREET><![CDATA[Wilberhofener Str. 3]]></STREET>
+                <CITY><![CDATA[Windeck]]></CITY>
+                <ZIP><![CDATA[51570]]></ZIP>
+                <COUNTRY><![CDATA[Deutschland]]></COUNTRY>
+                <PHONE><![CDATA[02292/921228]]></PHONE>
+                <FAX><![CDATA[]]></FAX>
+                <EMAIL><![CDATA[info@yellotools.com]]></EMAIL>
+                <VAT_ID><![CDATA[]]></VAT_ID>
+              </ADDRESS>
+            </PARTY>
+          </INVOICE_PARTY>
+          <SUPPLIER_PARTY>
+            <PARTY>
+              <ADDRESS>
+                <NAME><![CDATA[Yellotools GmbH]]></NAME>
+                <NAME2><![CDATA[Althoff]]></NAME2>
+                <NAME3><![CDATA[Michael]]></NAME3>
+                <STREET><![CDATA[Wilberhofener Str. 3]]></STREET>
+                <CITY><![CDATA[Windeck]]></CITY>
+                <ZIP><![CDATA[51570]]></ZIP>
+                <COUNTRY><![CDATA[Deutschland]]></COUNTRY>
+                <PHONE><![CDATA[02292/921228]]></PHONE>
+                <FAX><![CDATA[]]></FAX>
+                <EMAIL><![CDATA[info@yellotools.com]]></EMAIL>
+                <VAT_ID><![CDATA[]]></VAT_ID>
+              </ADDRESS>
+            </PARTY>
+          </SUPPLIER_PARTY>
+        </ORDER_PARTIES>
+        <PAYMENT>
+          <ACCOUNT>
+            <HOLDER><![CDATA[]]></HOLDER>
+            <BANK_NAME><![CDATA[]]></BANK_NAME>
+            <BANK_CODE><![CDATA[]]></BANK_CODE>
+            <BANK_ACCOUNT><![CDATA[]]></BANK_ACCOUNT>
+            <PAYMENT_TERM TYPE="unece"><![CDATA[54]]></PAYMENT_TERM>
+          </ACCOUNT>
+        </PAYMENT>
+        <REMARK type="delivery_method"><![CDATA[United Parcel Service Standard (]]></REMARK>
+        <REMARK type="shipping_fee"><![CDATA[8.9000]]></REMARK>
+        <REMARK type="order"><![CDATA[]]></REMARK>
+      </ORDER_INFO>
+    </ORDER_HEADER>
+    <ORDER_ITEM_LIST>
+      <ORDER_ITEM>
+        <LINE_ITEM_ID><![CDATA[1]]></LINE_ITEM_ID>
+        <ARTICLE_ID>
+          <SUPPLIER_AID><![CDATA[XXXX]]></SUPPLIER_AID>
+          <DESCRIPTION_LONG><![CDATA[]]></DESCRIPTION_LONG>
+        </ARTICLE_ID>
+        <QUANTITY><![CDATA[1.0000]]></QUANTITY>
+        <ORDER_UNIT><![CDATA[]]></ORDER_UNIT>
+        <ARTICLE_PRICE type="net_list">
+          <TAX><![CDATA[0.1900]]></TAX>
+          <PRICE_AMOUNT><![CDATA[62.32]]></PRICE_AMOUNT>
+          <PRICE_LINE_AMOUNT><![CDATA[62.32]]></PRICE_LINE_AMOUNT>
+        </ARTICLE_PRICE>
+      </ORDER_ITEM>
+      <ORDER_ITEM>
+        <LINE_ITEM_ID><![CDATA[2]]></LINE_ITEM_ID>
+        <ARTICLE_ID>
+          <SUPPLIER_AID><![CDATA[YT15VERPAU01]]></SUPPLIER_AID>
+        </ARTICLE_ID>
+        <QUANTITY><![CDATA[1]]></QUANTITY>
+        <ORDER_UNIT><![CDATA[]]></ORDER_UNIT>
+        <ARTICLE_PRICE type="net_list">
+          <PRICE_AMOUNT><![CDATA[1.1800]]></PRICE_AMOUNT>
+          <PRICE_LINE_AMOUNT><![CDATA[1.1800]]></PRICE_LINE_AMOUNT>
+          <TAX><![CDATA[0.19]]></TAX>
+        </ARTICLE_PRICE>
+      </ORDER_ITEM>
+      <ORDER_ITEM>
+        <LINE_ITEM_ID><![CDATA[3]]></LINE_ITEM_ID>
+        <ARTICLE_ID>
+          <SUPPLIER_AID><![CDATA[YT19VERUPS01]]></SUPPLIER_AID>
+        </ARTICLE_ID>
+        <QUANTITY><![CDATA[1]]></QUANTITY>
+        <ORDER_UNIT><![CDATA[]]></ORDER_UNIT>
+        <ARTICLE_PRICE type="net_list">
+          <PRICE_AMOUNT><![CDATA[8.9]]></PRICE_AMOUNT>
+          <PRICE_LINE_AMOUNT><![CDATA[8.9]]></PRICE_LINE_AMOUNT>
+          <TAX><![CDATA[0.1900]]></TAX>
+        </ARTICLE_PRICE>
+      </ORDER_ITEM>
+    </ORDER_ITEM_LIST>
+  </ORDER>
+</ORDER_LIST>

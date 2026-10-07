@@ -1,0 +1,22 @@
+{
+  "test": "10",
+  "title": "Große Bestellung",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "IT-2026-000010.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [],
+  "open_questions": [
+    "OQ-20"
+  ],
+  "input": {
+    "document_number": "IT-2026-000010",
+    "customer_reference": "IT-10",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Rechnung",
+    "lines": 120
+  }
+}

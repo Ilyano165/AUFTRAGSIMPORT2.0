@@ -1,0 +1,24 @@
+{
+  "test": "09",
+  "title": "Unbekannte Artikelnummer",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "09-unbekannt.xml"
+  ],
+  "export_blocked_by_product": [
+    "EXP_ARTICLE_UNRESOLVED: Position 1: kein Katalogartikel zugeordnet; Lexware würde die Position verwerfen"
+  ],
+  "product_notes": [],
+  "open_questions": [
+    "OQ-19"
+  ],
+  "input": {
+    "document_number": "IT-2026-000009",
+    "customer_reference": "IT-09",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Rechnung",
+    "lines": 1
+  }
+}

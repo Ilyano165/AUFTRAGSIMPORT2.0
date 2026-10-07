@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  IC-Ware Auftrags-Import: Windows-Installer (WiX Toolset v5; Sprache ohne Änderung mit v6 baubar).
+  Nur über tools/release/build.py bauen; die Variablen kommen von dort.
+
+  Verhalten
+  - Installation pro Rechner nach "Program Files\IC-Ware\Auftrags-Import" (Administratorrechte).
+  - Upgrade: Major Upgrade; die alte Version wird entfernt, die neue installiert. Gleiche Version
+    darf erneut installiert werden (Vorabversion -> Final). Downgrades werden verweigert.
+  - Reparatur: Systemsteuerung > Programme > "Reparieren" oder msiexec /fa <msi>.
+  - Deinstallation: entfernt nur Programmdateien, Startmenü-Eintrag und Registrierungseinträge.
+  - Benutzerdaten (%APPDATA%, %LOCALAPPDATA%) und die Richtlinie (%PROGRAMDATA%) installiert der
+    Installer nicht und entfernt sie deshalb auch nie: Aufträge, Kataloge und Einstellungen
+    überleben jedes Upgrade und jede Deinstallation.
+
+  UpgradeCode NIE ändern. Er verbindet alle Versionen; eine Änderung erzeugt Parallelinstallationen.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="IC-Ware Auftrags-Import"
+           Manufacturer="IC-Ware"
+           Version="$(var.ProductVersion)"
+           UpgradeCode="7C2F5A31-4E8B-4C1D-9A55-2D1E8F3B6A90"
+           Scope="perMachine"
+           Language="1031"
+           Codepage="1252"
+           InstallerVersion="500"
+           Compressed="yes">
+
+    <SummaryInformation Description="IC-Ware Auftrags-Import $(var.ProductVersion)" Manufacturer="IC-Ware" />
+
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+                  DowngradeErrorMessage="Eine neuere Version von [ProductName] ist bereits installiert. Für eine ältere Version bitte zuerst deinstallieren." />
+
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Launch Condition="Installed OR VersionNT64" Message="[ProductName] benötigt ein 64-Bit-Windows." />
+    <Launch Condition="Installed OR VersionNT &gt;= 603" Message="[ProductName] benötigt Windows 10 oder neuer." />
+
+    <Icon Id="AppIcon.ico" SourceFile="$(var.IconFile)" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://ic-ware.eu" />
+    <Property Id="ARPCONTACT" Value="$(var.SupportContact)" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+    <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="VendorFolder" Name="IC-Ware">
+        <Directory Id="INSTALLFOLDER" Name="Auftrags-Import" />
+      </Directory>
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+
+    <Feature Id="Application" Title="IC-Ware Auftrags-Import" Level="1" AllowAbsent="no">
+      <Files Directory="INSTALLFOLDER" Include="$(var.SourceDir)\**" />
+      <ComponentRef Id="StartMenuShortcut" />
+      <ComponentRef Id="InstallInfo" />
+    </Feature>
+
+    <Component Id="StartMenuShortcut" Directory="ProgramMenuFolder" Guid="3B8E4D27-6A1F-4F5C-8E2B-91C47A0D5E13">
+      <Shortcut Id="AppShortcut"
+                Name="IC-Ware Auftrags-Import"
+                Description="Bestellmails prüfen und als Aufträge an Lexware übergeben"
+                Target="[INSTALLFOLDER]AuftragsImport.exe"
+                WorkingDirectory="INSTALLFOLDER"
+                Icon="AppIcon.ico">
+        <!-- Gleiche ID wie im Programm (SetCurrentProcessExplicitAppUserModelID), sonst teilt Windows
+             Startmenü-Eintrag und laufendes Programm auf zwei Taskleistensymbole auf. -->
+        <ShortcutProperty Key="System.AppUserModel.ID" Value="IC-Ware.AuftragsImport.2" />
+      </Shortcut>
+      <RegistryValue Root="HKLM" Key="Software\IC-Ware\Auftrags-Import" Name="StartMenuShortcut"
+                     Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+    <Component Id="InstallInfo" Directory="INSTALLFOLDER" Guid="9D4A6C18-2B7E-4E90-A3F1-5C8B2E7D4F06">
+      <RegistryValue Root="HKLM" Key="Software\IC-Ware\Auftrags-Import" Name="InstallDir"
+                     Type="string" Value="[INSTALLFOLDER]" KeyPath="yes" />
+      <RegistryValue Root="HKLM" Key="Software\IC-Ware\Auftrags-Import" Name="Version"
+                     Type="string" Value="$(var.ProductVersion)" />
+    </Component>
+
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.LicenseRtf)" />
+  </Package>
+</Wix>

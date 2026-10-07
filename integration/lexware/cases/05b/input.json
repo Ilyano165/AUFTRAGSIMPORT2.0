@@ -1,0 +1,25 @@
+{
+  "test": "05b",
+  "title": "Sonderzeichen als Entitäten",
+  "encoding": "UTF-8",
+  "notation": "entities",
+  "files": [
+    "IT-2026-00005b.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [
+    "EXP_PRICE_FROM_CATALOG: Preis aus dem Artikelkatalog für Position(en) 1; Lexware übernimmt Preise aus der Datei als manuelle Positionspreise",
+    "EXP_DELIVERY_METHOD_LONG: Versandart ist länger als 32 Zeichen; die Referenz zeigt eine Kürzung (OQ-13)"
+  ],
+  "open_questions": [
+    "OQ-03"
+  ],
+  "input": {
+    "document_number": "IT-2026-00005b",
+    "customer_reference": "IT-05b",
+    "invoice_address": "Müller & Partner <Technik> \"Nord\" GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Rechnung",
+    "lines": 1
+  }
+}

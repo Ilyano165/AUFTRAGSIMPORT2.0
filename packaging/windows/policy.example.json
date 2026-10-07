@@ -1,0 +1,9 @@
+{
+  "support_contact": "IT-Service Musterfirma, Telefon 0221 000000",
+  "log_level": "INFO",
+  "updates": {
+    "check_enabled": false,
+    "channel": "stable",
+    "manifest_url": ""
+  }
+}

@@ -1,0 +1,216 @@
+# Windows-Build mit Installer (MSI) auf einem echten Windows-Runner.
+#
+# Build-Art:
+#   test    – Push auf main/claude/**, Pull Request oder manuell (Standard). Unsigniert und mit
+#             Platzhalter-Lizenz zulässig; die MSI heißt …-x64-TESTBUILD.msi und ist nur für
+#             interne Tests.
+#   release – Tag vX.Y.Z oder manuell. Braucht Signatur (SIGNING_ENABLED), endgültigen
+#             Lizenztext, Git-Tag passend zur Version, CHANGELOG-Abschnitt; sonst roter Lauf.
+#
+# Grundsatz: Jeder Schritt führt genau EINEN Befehl aus. PowerShell wertet in einem Schritt mit
+# mehreren Programmaufrufen nur den Exit-Code des letzten aus; frühere Fehler gingen verloren.
+# Kein continue-on-error. Die Protokolle werden auch bei Fehlern hochgeladen, der Lauf bleibt rot.
+# Actions sind auf Commit-SHAs festgelegt (Kommentar: Tag zum Zeitpunkt der Festlegung).
+name: Windows-Build
+
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+    branches: ["main", "claude/**"]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: "test = interner Testbuild (unsigniert zulässig); release = Signatur und Lizenz Pflicht"
+        type: choice
+        options: [test, release]
+        default: test
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-build-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+env:
+  PYTHONHASHSEED: "0"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  QT_QPA_PLATFORM: offscreen
+  WIX_VERSION: "5.0.2"
+  # Release nur über Tag v… oder manuell; Branch-Pushes und PRs sind immer Testbuilds.
+  BUILD_TYPE: ${{ startsWith(github.ref, 'refs/tags/v') && 'release' || inputs.build_type || 'test' }}
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      id-token: write        # Azure Artifact Signing (OIDC) und Build-Provenienz
+      attestations: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version-file: .python-version
+          architecture: x64
+
+      - name: "Release nur mit Signatur (CODE SIGNING: NOT CONFIGURED)"
+        if: env.BUILD_TYPE == 'release' && vars.SIGNING_ENABLED != 'true'
+        run: |
+          Write-Output "::error::CODE SIGNING: NOT CONFIGURED – ein Release-Build ist nicht möglich (docs/release/signing.md). Für interne Tests build_type=test wählen."
+          exit 1
+
+      - name: Build-Abhängigkeiten (requirements/build-windows.lock, Prüfsummen Pflicht)
+        run: 'python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements/build-windows.lock'
+
+      - name: Prüfwerkzeuge (requirements/ci-tools.lock, Prüfsummen Pflicht)
+        run: 'python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements/ci-tools.lock'
+
+      - name: Projekt einbinden (ohne weitere Abhängigkeiten)
+        run: python -m pip install --no-deps --no-build-isolation -e .
+
+      - name: Build-Umgebung prüfen (Python laut .python-version, 64 Bit, Pakete laut Sperrdatei)
+        run: python tools/release/build.py check-env
+
+      - name: Bekannte Schwachstellen in Abhängigkeiten
+        run: python -m pip_audit --strict --require-hashes --disable-pip -r requirements/build-windows.lock
+
+      - name: Lint
+        run: python -m ruff check src tests tools
+
+      - name: Formatprüfung
+        run: python -m ruff format --check src tests tools
+
+      - name: mypy --strict
+        run: python -m mypy --strict
+
+      - name: Komplette Testsuite
+        run: python -m pytest -q -p no:cacheprovider -rs
+
+      - name: WiX Toolset
+        run: dotnet tool install --global wix --version $env:WIX_VERSION
+
+      - name: WiX-UI-Erweiterung
+        run: wix extension add --global WixToolset.UI.wixext/$env:WIX_VERSION
+
+      - name: Vorbereiten (Testbuild)
+        if: env.BUILD_TYPE == 'test'
+        run: python tools/release/build.py prepare --build-number ${{ github.run_number }}
+
+      - name: Vorbereiten (Release – prüft Lizenz, Tag, CHANGELOG, Versionen)
+        if: env.BUILD_TYPE == 'release'
+        run: python tools/release/build.py prepare --release --build-number ${{ github.run_number }}
+
+      - name: Programm erzeugen (PyInstaller)
+        run: python tools/release/build.py freeze
+
+      - name: Produktprüfung (keine Entwicklungsdateien)
+        run: python tools/release/build.py audit
+
+      - name: Selbsttest der fertigen EXE
+        run: python tools/release/build.py selftest
+
+      - name: EXE signieren (vor dem Verpacken)
+        if: env.BUILD_TYPE == 'release' && vars.SIGNING_ENABLED == 'true'
+        uses: azure/trusted-signing-action@1d365fec12862c4aa68fcac418143d73f0cea293 # v0
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          endpoint: ${{ vars.ARTIFACT_SIGNING_ENDPOINT }}
+          trusted-signing-account-name: ${{ vars.ARTIFACT_SIGNING_ACCOUNT }}
+          certificate-profile-name: ${{ vars.ARTIFACT_SIGNING_PROFILE }}
+          files: ${{ github.workspace }}\dist\AuftragsImport\AuftragsImport.exe
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
+      - name: Installer erzeugen (WiX)
+        run: python tools/release/build.py msi
+
+      - name: Installer signieren
+        if: env.BUILD_TYPE == 'release' && vars.SIGNING_ENABLED == 'true'
+        uses: azure/trusted-signing-action@1d365fec12862c4aa68fcac418143d73f0cea293 # v0
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          endpoint: ${{ vars.ARTIFACT_SIGNING_ENDPOINT }}
+          trusted-signing-account-name: ${{ vars.ARTIFACT_SIGNING_ACCOUNT }}
+          certificate-profile-name: ${{ vars.ARTIFACT_SIGNING_PROFILE }}
+          files-folder: ${{ github.workspace }}\dist
+          files-folder-filter: msi
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
+      - name: Installer prüfen (vorhanden, Größe, Dateityp, Produkt, Version, UpgradeCode, Signatur)
+        run: python tools/release/build.py verify
+
+      - name: Prüfsummen und Build-Manifest
+        run: python tools/release/build.py manifest
+        env:
+          ICW_SIGN_COMMAND: ${{ env.BUILD_TYPE == 'release' && vars.SIGNING_ENABLED == 'true' && 'azure' || '' }}
+
+      - name: Build-Provenienz (öffentliches Repository oder ATTESTATION_ENABLED)
+        # Free/Pro/Team: Attestierungen nur für öffentliche Repositories; privat braucht Enterprise Cloud.
+        if: github.event.repository.visibility == 'public' || vars.ATTESTATION_ENABLED == 'true'
+        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2
+        with:
+          subject-path: dist/*.msi
+
+      - name: MSI als Artefakt veröffentlichen
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: IC-Ware-AuftragsImport-${{ env.BUILD_TYPE }}-${{ github.run_number }}
+          path: |
+            dist/*.msi
+            dist/SHA256SUMS.txt
+            dist/build-manifest.json
+          if-no-files-found: error
+
+      - name: Zusammenfassung
+        run: Get-Content build/msi-verify.txt, dist/SHA256SUMS.txt | Add-Content -Path $env:GITHUB_STEP_SUMMARY
+
+      - name: Build-Protokolle veröffentlichen (auch bei Fehlern; der Lauf bleibt dann rot)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: Build-Protokolle-${{ env.BUILD_TYPE }}-${{ github.run_number }}
+          path: |
+            build/build_type
+            build/version.txt
+            build/selftest.txt
+            build/msi-verify.txt
+            build/pyinstaller/AuftragsImport/warn-AuftragsImport.txt
+            dist/build-manifest.json
+          if-no-files-found: warn
+
+  reproducibility:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version-file: .python-version
+          architecture: x64
+      - name: Abhängigkeiten
+        run: 'python -m pip install --require-hashes --no-deps --only-binary=:all: -r requirements/build-windows.lock'
+      - name: Vorbereiten
+        run: python tools/release/build.py prepare --build-number 0
+      - name: Erster Build
+        run: python tools/release/build.py freeze --dist build/repro-a
+      - name: Zweiter Build
+        run: python tools/release/build.py freeze --dist build/repro-b
+      - name: Vergleich
+        run: python tools/release/build.py compare build/repro-a/AuftragsImport build/repro-b/AuftragsImport

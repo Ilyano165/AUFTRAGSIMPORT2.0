@@ -1,0 +1,1 @@
+"""Validierte Einstellungen ohne Geheimnisse."""

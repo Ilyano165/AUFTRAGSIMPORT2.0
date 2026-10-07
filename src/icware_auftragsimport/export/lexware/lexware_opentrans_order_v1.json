@@ -1,0 +1,1276 @@
+{
+  "spec_id": "lexware-opentrans-order",
+  "spec_version": "1.0.0",
+  "status": "Exportadapter implementiert – Zielsystemvalidierung ausstehend",
+  "scope": "Bestellimport Lexware warenwirtschaft (eBusiness, Standard-Shopschnittstelle), Format openTRANS 1.0 mit Lexware-Abweichungen",
+  "sources": [
+    {
+      "id": "REF-248090",
+      "kind": "Echte Referenzdatei",
+      "file": "integration/lexware/reference/248090.xml",
+      "sha256": "4abe421990a9473d6666f3989cadce5348848fc836f3d475664d9b0d3693d3d5",
+      "note": "Einzige vorliegende Datei. Herkunft „Shop 2.0“, 10.05.2021. Ob sie erfolgreich importiert wurde, ist nicht belegt (OQ-17)."
+    },
+    {
+      "id": "LX-SPEC-2009",
+      "kind": "Herstellerdokumentation",
+      "title": "Import von Bestellungen im openTRANS-Format in Lexware warenwirtschaft pro/premium",
+      "version": "1.1",
+      "date": "2009-10-20",
+      "url": "https://lexwiki.de/wp-content/uploads/Spezifikationen-Bestellformat-openTRANS-pro.pdf",
+      "note": "Gilt laut Dokument ab Lexware Warenwirtschaft 9.00; faktura+auftrag kann abweichen."
+    },
+    {
+      "id": "OT-1.0",
+      "kind": "Standard",
+      "title": "openTRANS 1.0, Kapitel 4.3 ORDER",
+      "note": "Von LX-SPEC referenziert; nicht selbst geprüft. Es werden nur Elemente verwendet, die REF oder LX-SPEC belegen."
+    }
+  ],
+  "document": {
+    "root": "ORDER_LIST",
+    "root_namespace": null,
+    "order_namespace": "http://www.opentrans.org/XMLSchema/1.0",
+    "xsi_namespace": "http://www.w3.org/2001/XMLSchema-instance",
+    "encodings": [
+      "UTF-8",
+      "ISO-8859-1"
+    ],
+    "default_encoding": "UTF-8",
+    "encoding_basis": [
+      "LX-SPEC-2009 3.1.1 empfiehlt UTF-8",
+      "REF-248090 verwendet ISO-8859-1",
+      "Siehe OQ-02"
+    ],
+    "text_notation": "cdata",
+    "text_notation_basis": [
+      "REF-248090 schreibt alle Werte als CDATA",
+      "LX-SPEC-2009 3.1.3 beschreibt Entitäten",
+      "Siehe OQ-03"
+    ],
+    "line_ending": "\r\n",
+    "indent": "  ",
+    "orders_per_file": 1,
+    "forbidden_characters": {
+      "€": "EUR"
+    },
+    "forbidden_basis": [
+      "LX-SPEC-2009 3.1.2"
+    ]
+  },
+  "tree": {
+    "tag": "ORDER_LIST",
+    "min": 1,
+    "max": 1,
+    "basis": [
+      "REF-248090",
+      "LX-SPEC-2009 2.1"
+    ],
+    "children": [
+      {
+        "tag": "ORDER",
+        "min": 1,
+        "max": 1,
+        "basis": [
+          "REF-248090",
+          "LX-SPEC-2009 2.1"
+        ],
+        "children": [
+          {
+            "tag": "ORDER_HEADER",
+            "min": 1,
+            "max": 1,
+            "basis": [
+              "REF-248090"
+            ],
+            "children": [
+              {
+                "tag": "CONTROL_INFO",
+                "min": 1,
+                "max": 1,
+                "basis": [
+                  "REF-248090"
+                ],
+                "children": [
+                  {
+                    "tag": "GENERATOR_INFO",
+                    "min": 1,
+                    "max": 1,
+                    "text": {
+                      "type": "text",
+                      "required": true
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.1"
+                    ],
+                    "lexware_effect": "wird nicht übernommen"
+                  },
+                  {
+                    "tag": "GENERATOR_DATE",
+                    "min": 1,
+                    "max": 1,
+                    "text": {
+                      "type": "datetime",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.1"
+                    ],
+                    "lexware_effect": "wird nicht übernommen"
+                  }
+                ]
+              },
+              {
+                "tag": "ORDER_INFO",
+                "min": 1,
+                "max": 1,
+                "basis": [
+                  "REF-248090"
+                ],
+                "children": [
+                  {
+                    "tag": "ORDER_ID",
+                    "min": 1,
+                    "max": 1,
+                    "text": {
+                      "type": "text",
+                      "required": true
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.1"
+                    ],
+                    "lexware_effect": "Auftrag-Bestellnummer"
+                  },
+                  {
+                    "tag": "ORDER_DATE",
+                    "min": 1,
+                    "max": 1,
+                    "text": {
+                      "type": "datetime",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.1"
+                    ],
+                    "lexware_effect": "Datumsteil wird Auftragsdatum, Zeitteil ignoriert"
+                  },
+                  {
+                    "tag": "ORDER_PARTIES",
+                    "min": 1,
+                    "max": 1,
+                    "basis": [
+                      "REF-248090"
+                    ],
+                    "children": [
+                      {
+                        "tag": "BUYER_PARTY",
+                        "min": 1,
+                        "max": 1,
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.1"
+                        ],
+                        "children": [
+                          {
+                            "tag": "PARTY",
+                            "min": 1,
+                            "max": 1,
+                            "basis": [
+                              "REF-248090"
+                            ],
+                            "children": [
+                              {
+                                "tag": "ADDRESS",
+                                "min": 1,
+                                "max": 1,
+                                "basis": [
+                                  "REF-248090"
+                                ],
+                                "children": [
+                                  {
+                                    "tag": "NAME",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Firmenname"
+                                  },
+                                  {
+                                    "tag": "NAME2",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Nachname"
+                                  },
+                                  {
+                                    "tag": "NAME3",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Vorname"
+                                  },
+                                  {
+                                    "tag": "STREET",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Straße (inklusive Hausnummer, wie in der Referenz)"
+                                  },
+                                  {
+                                    "tag": "CITY",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Ort"
+                                  },
+                                  {
+                                    "tag": "ZIP",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "PLZ"
+                                  },
+                                  {
+                                    "tag": "COUNTRY",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Land als Name; Länderkürzel werden nicht umgewandelt"
+                                  },
+                                  {
+                                    "tag": "PHONE",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  },
+                                  {
+                                    "tag": "FAX",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  },
+                                  {
+                                    "tag": "EMAIL",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  },
+                                  {
+                                    "tag": "VAT_ID",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "lexware_effect": "Lieferadresse (Lexware-Bedeutung, nicht openTRANS-Käufer)"
+                      },
+                      {
+                        "tag": "INVOICE_PARTY",
+                        "min": 1,
+                        "max": 1,
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.1"
+                        ],
+                        "children": [
+                          {
+                            "tag": "PARTY",
+                            "min": 1,
+                            "max": 1,
+                            "basis": [
+                              "REF-248090"
+                            ],
+                            "children": [
+                              {
+                                "tag": "ADDRESS",
+                                "min": 1,
+                                "max": 1,
+                                "basis": [
+                                  "REF-248090"
+                                ],
+                                "children": [
+                                  {
+                                    "tag": "NAME",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Firmenname"
+                                  },
+                                  {
+                                    "tag": "NAME2",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Nachname"
+                                  },
+                                  {
+                                    "tag": "NAME3",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Vorname"
+                                  },
+                                  {
+                                    "tag": "STREET",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Straße (inklusive Hausnummer, wie in der Referenz)"
+                                  },
+                                  {
+                                    "tag": "CITY",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Ort"
+                                  },
+                                  {
+                                    "tag": "ZIP",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "PLZ"
+                                  },
+                                  {
+                                    "tag": "COUNTRY",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Land als Name; Länderkürzel werden nicht umgewandelt"
+                                  },
+                                  {
+                                    "tag": "PHONE",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Telefon"
+                                  },
+                                  {
+                                    "tag": "FAX",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Fax"
+                                  },
+                                  {
+                                    "tag": "EMAIL",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "E-Mail"
+                                  },
+                                  {
+                                    "tag": "VAT_ID",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "USt-IdNr."
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "lexware_effect": "Rechnungsadresse; ohne Kundenzuordnung wird ein neuer Kunde angelegt"
+                      },
+                      {
+                        "tag": "SUPPLIER_PARTY",
+                        "min": 1,
+                        "max": 1,
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.1"
+                        ],
+                        "children": [
+                          {
+                            "tag": "PARTY",
+                            "min": 1,
+                            "max": 1,
+                            "basis": [
+                              "REF-248090"
+                            ],
+                            "children": [
+                              {
+                                "tag": "ADDRESS",
+                                "min": 1,
+                                "max": 1,
+                                "basis": [
+                                  "REF-248090"
+                                ],
+                                "children": [
+                                  {
+                                    "tag": "NAME",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Firmenname"
+                                  },
+                                  {
+                                    "tag": "NAME2",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Nachname"
+                                  },
+                                  {
+                                    "tag": "NAME3",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 3.3"
+                                    ],
+                                    "lexware_effect": "Vorname"
+                                  },
+                                  {
+                                    "tag": "STREET",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Straße (inklusive Hausnummer, wie in der Referenz)"
+                                  },
+                                  {
+                                    "tag": "CITY",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Ort"
+                                  },
+                                  {
+                                    "tag": "ZIP",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "PLZ"
+                                  },
+                                  {
+                                    "tag": "COUNTRY",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "Land als Name; Länderkürzel werden nicht umgewandelt"
+                                  },
+                                  {
+                                    "tag": "PHONE",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  },
+                                  {
+                                    "tag": "FAX",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  },
+                                  {
+                                    "tag": "EMAIL",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  },
+                                  {
+                                    "tag": "VAT_ID",
+                                    "min": 1,
+                                    "max": 1,
+                                    "text": {
+                                      "type": "text"
+                                    },
+                                    "basis": [
+                                      "REF-248090",
+                                      "LX-SPEC-2009 4.1"
+                                    ],
+                                    "lexware_effect": "wird nicht übernommen"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "lexware_effect": "wird nicht übernommen"
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "PAYMENT",
+                    "min": 1,
+                    "max": 1,
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.2.3"
+                    ],
+                    "children": [
+                      {
+                        "tag": "CASH",
+                        "min": 0,
+                        "max": 1,
+                        "basis": [
+                          "LX-SPEC-2009 4.2.3.1"
+                        ],
+                        "children": [
+                          {
+                            "tag": "PAYMENT_TERM",
+                            "min": 1,
+                            "max": 1,
+                            "text": {
+                              "type": "enum",
+                              "values": [
+                                "10",
+                                "25",
+                                "52",
+                                "56"
+                              ]
+                            },
+                            "basis": [
+                              "LX-SPEC-2009 4.2.3.1"
+                            ],
+                            "lexware_effect": "10 Rechnung, 25 Vorkasse, 52 Nachnahme, 56 Barzahlung",
+                            "attributes": {
+                              "TYPE": {
+                                "const": "unece"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "tag": "ACCOUNT",
+                        "min": 0,
+                        "max": 1,
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.2.3.2"
+                        ],
+                        "children": [
+                          {
+                            "tag": "HOLDER",
+                            "min": 1,
+                            "max": 1,
+                            "text": {
+                              "type": "text"
+                            },
+                            "basis": [
+                              "REF-248090",
+                              "LX-SPEC-2009 4.2.3.2"
+                            ],
+                            "lexware_effect": "Kontoinhaber"
+                          },
+                          {
+                            "tag": "BANK_NAME",
+                            "min": 1,
+                            "max": 1,
+                            "text": {
+                              "type": "text"
+                            },
+                            "basis": [
+                              "REF-248090",
+                              "LX-SPEC-2009 4.2.3.2"
+                            ],
+                            "lexware_effect": "Bankname"
+                          },
+                          {
+                            "tag": "BANK_CODE",
+                            "min": 1,
+                            "max": 1,
+                            "text": {
+                              "type": "text"
+                            },
+                            "basis": [
+                              "REF-248090",
+                              "LX-SPEC-2009 4.2.3.2"
+                            ],
+                            "lexware_effect": "BLZ"
+                          },
+                          {
+                            "tag": "BANK_ACCOUNT",
+                            "min": 1,
+                            "max": 1,
+                            "text": {
+                              "type": "text"
+                            },
+                            "basis": [
+                              "REF-248090",
+                              "LX-SPEC-2009 4.2.3.2"
+                            ],
+                            "lexware_effect": "Kontonummer"
+                          },
+                          {
+                            "tag": "PAYMENT_TERM",
+                            "min": 1,
+                            "max": 1,
+                            "text": {
+                              "type": "enum",
+                              "values": [
+                                "54"
+                              ]
+                            },
+                            "basis": [
+                              "REF-248090",
+                              "LX-SPEC-2009 4.2.3.2"
+                            ],
+                            "lexware_effect": "54 Bankeinzug",
+                            "attributes": {
+                              "TYPE": {
+                                "const": "unece"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "choice": true,
+                    "lexware_effect": "Zahlungsart; fehlt PAYMENT, gilt Rechnung"
+                  },
+                  {
+                    "tag": "REMARK",
+                    "min": 0,
+                    "max": 1,
+                    "text": {
+                      "type": "text"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 3.2",
+                      "LX-SPEC-2009 4.2.6"
+                    ],
+                    "lexware_effect": "Versandart; Position nur bei gleichnamiger Nebenleistung, sonst Nachbemerkung",
+                    "attributes": {
+                      "type": {
+                        "const": "delivery_method"
+                      }
+                    }
+                  },
+                  {
+                    "tag": "REMARK",
+                    "min": 0,
+                    "max": 1,
+                    "text": {
+                      "type": "decimal",
+                      "pattern": "^\\d+\\.\\d{2,4}$"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 3.2"
+                    ],
+                    "lexware_effect": "Versandkosten (siehe delivery_method)",
+                    "attributes": {
+                      "type": {
+                        "const": "shipping_fee"
+                      }
+                    }
+                  },
+                  {
+                    "tag": "REMARK",
+                    "min": 0,
+                    "max": 1,
+                    "text": {
+                      "type": "text"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 3.2",
+                      "LX-SPEC-2009 5.3"
+                    ],
+                    "lexware_effect": "Bemerkungstext des Belegs",
+                    "attributes": {
+                      "type": {
+                        "const": "order"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "ORDER_ITEM_LIST",
+            "min": 1,
+            "max": 1,
+            "basis": [
+              "REF-248090"
+            ],
+            "children": [
+              {
+                "tag": "ORDER_ITEM",
+                "min": 1,
+                "max": null,
+                "basis": [
+                  "REF-248090",
+                  "LX-SPEC-2009 4.1"
+                ],
+                "children": [
+                  {
+                    "tag": "LINE_ITEM_ID",
+                    "min": 1,
+                    "max": 1,
+                    "text": {
+                      "type": "integer",
+                      "pattern": "^[1-9]\\d*$"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.1"
+                    ],
+                    "lexware_effect": "wird nicht übernommen"
+                  },
+                  {
+                    "tag": "ARTICLE_ID",
+                    "min": 1,
+                    "max": 1,
+                    "basis": [
+                      "REF-248090"
+                    ],
+                    "children": [
+                      {
+                        "tag": "SUPPLIER_AID",
+                        "min": 1,
+                        "max": 1,
+                        "text": {
+                          "type": "text",
+                          "required": true
+                        },
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.1",
+                          "LX-SPEC-2009 4.2.2"
+                        ],
+                        "lexware_effect": "Artikelnummer; ohne Stammartikel wird die Position verworfen"
+                      },
+                      {
+                        "tag": "DESCRIPTION_LONG",
+                        "min": 0,
+                        "max": 1,
+                        "text": {
+                          "type": "text"
+                        },
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.1"
+                        ],
+                        "lexware_effect": "Positionstext; vom Adapter nicht geschrieben (OQ-15)"
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "QUANTITY",
+                    "min": 1,
+                    "max": 1,
+                    "text": {
+                      "type": "decimal",
+                      "pattern": "^\\d+(\\.\\d{1,4})?$"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.1"
+                    ],
+                    "lexware_effect": "Artikelmenge"
+                  },
+                  {
+                    "tag": "ORDER_UNIT",
+                    "min": 1,
+                    "max": 1,
+                    "text": {
+                      "type": "text"
+                    },
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.1"
+                    ],
+                    "lexware_effect": "wird nicht übernommen"
+                  },
+                  {
+                    "tag": "ARTICLE_PRICE",
+                    "min": 1,
+                    "max": 1,
+                    "basis": [
+                      "REF-248090",
+                      "LX-SPEC-2009 4.2.5"
+                    ],
+                    "children": [
+                      {
+                        "tag": "PRICE_AMOUNT",
+                        "min": 1,
+                        "max": 1,
+                        "text": {
+                          "type": "decimal",
+                          "pattern": "^\\d+(\\.\\d{1,4})?$"
+                        },
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.1"
+                        ],
+                        "lexware_effect": "laut LX-SPEC nicht verwendet"
+                      },
+                      {
+                        "tag": "PRICE_LINE_AMOUNT",
+                        "min": 1,
+                        "max": 1,
+                        "text": {
+                          "type": "decimal",
+                          "pattern": "^\\d+(\\.\\d{1,4})?$"
+                        },
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.2.5"
+                        ],
+                        "lexware_effect": "Positionspreis; Bedeutung bei Menge > 1 offen (OQ-05)"
+                      },
+                      {
+                        "tag": "TAX",
+                        "min": 1,
+                        "max": 1,
+                        "text": {
+                          "type": "decimal",
+                          "pattern": "^(0(\\.\\d{1,4})?|1(\\.0{1,4})?)$"
+                        },
+                        "basis": [
+                          "REF-248090",
+                          "LX-SPEC-2009 4.1"
+                        ],
+                        "lexware_effect": "Steuersatz als Anteil, 0.19 = 19 %"
+                      }
+                    ],
+                    "attributes": {
+                      "type": {
+                        "values": [
+                          "net_list",
+                          "gros_list"
+                        ]
+                      }
+                    },
+                    "child_order_basis": "Reihenfolge wie LX-SPEC-2009 4.2.5; REF-248090 Position 1 weicht ab (TAX zuerst)"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "attributes": {
+          "version": {
+            "const": "1.0"
+          },
+          "type": {
+            "const": "standard"
+          }
+        }
+      }
+    ]
+  },
+  "documented_but_not_used": [
+    {
+      "element": "ORDER_INFO/PRICE_CURRENCY",
+      "basis": "LX-SPEC-2009 4.1",
+      "note": "„978“ entspricht Euro, einzig erlaubter Wert. In REF nicht vorhanden; Position im Element ungeklärt. Adapter erzwingt Währung EUR intern (OQ-21)."
+    },
+    {
+      "element": "REMARK type=tax_area",
+      "basis": "LX-SPEC-2009 3.2, 4.2.5.4",
+      "note": "Merchant/EU/Non_EU; Schreibweise in LX-SPEC uneinheitlich (Non_EU, non_eu, non_EU). Auslandskunden werden blockiert (OQ-10)."
+    },
+    {
+      "element": "REMARK type=additional_costs",
+      "basis": "LX-SPEC-2009 3.2, 4.2.7",
+      "note": "Zahlungsartkosten; vom Import nicht erkannt, daher nicht genutzt."
+    },
+    {
+      "element": "ORDER_ITEM/REMARK type=origin_company_id",
+      "basis": "LX-SPEC-2009 4.2.8",
+      "note": "Mandantenschutz; Position im ORDER_ITEM unbelegt (OQ-16)."
+    },
+    {
+      "element": "ORDER_ITEM/REMARK type=arbitrary_data",
+      "basis": "LX-SPEC-2009 4.2.5.3",
+      "note": "Nettopreis bei Bruttoauftrag in Nettofirma; nicht genutzt."
+    },
+    {
+      "element": "PAYMENT/CARD",
+      "basis": "LX-SPEC-2009 4.2.3.3",
+      "note": "Kreditkarte; wird bewusst nie erzeugt (keine Kartendaten speichern)."
+    },
+    {
+      "element": "ARTICLE_ID/DESCRIPTION_SHORT",
+      "basis": "LX-SPEC-2009 4.1",
+      "note": "Würde Artikelbezeichnung und Matchcode setzen; nicht genutzt (OQ-15)."
+    },
+    {
+      "element": "ORDER_PARTIES/*/PARTY/PARTY_ID",
+      "basis": "LX-SPEC-2009 4.1",
+      "note": "Wird von Lexware nicht übernommen; Kundennummer ist nicht übertragbar (OQ-08)."
+    },
+    {
+      "element": "SHIPMENT_PARTIES/DELIVERY_PARTY",
+      "basis": "OT-1.0",
+      "note": "In LX-SPEC nicht erwähnt; Lieferadresse läuft über BUYER_PARTY."
+    }
+  ],
+  "mapping": {
+    "ORDER_ID": "Bestellnummer des Kunden (bestätigt), sonst interne Belegnummer (OQ-14)",
+    "ORDER_DATE": "Bestelldatum, Uhrzeit 00:00:00 (Zeitteil wird von Lexware ignoriert)",
+    "BUYER_PARTY": "Lieferanschrift; bei „wie Rechnungsanschrift“ die Rechnungsanschrift (wie REF)",
+    "INVOICE_PARTY": "Rechnungsanschrift",
+    "SUPPLIER_PARTY": "Lieferantenanschrift des Importprofils (wie REF; von Lexware nicht übernommen)",
+    "NAME/NAME2/NAME3": "Firma / Nachname / Vorname; Abteilung hat kein Zielfeld",
+    "STREET": "Straße und Hausnummer, durch Leerzeichen getrennt",
+    "COUNTRY": "deutscher Ländername aus dem ISO-Code",
+    "PAYMENT": "Rechnung CASH 10, Vorkasse CASH 25, Nachnahme CASH 52, Barzahlung CASH 56, Lastschrift ACCOUNT 54 ohne Bankdaten",
+    "REMARK delivery_method/shipping_fee": "Versandart und Versandkosten des Auftrags",
+    "REMARK order": "Notiz des Auftrags",
+    "SUPPLIER_AID": "Artikelnummer des zugeordneten Katalogartikels",
+    "QUANTITY": "Menge, Punkt als Dezimaltrenner",
+    "PRICE_AMOUNT": "Einzelpreis (Mail, sonst Katalog), 2 Nachkommastellen",
+    "PRICE_LINE_AMOUNT": "Einzelpreis × Menge nach openTRANS-Semantik (OQ-05)",
+    "TAX": "Steuersatz des Katalogartikels als Anteil",
+    "ARTICLE_PRICE@type": "net_list bei Profil netto, gros_list bei brutto (OQ-18)"
+  },
+  "open_questions": [
+    {
+      "id": "OQ-01",
+      "topic": "Zielsystem",
+      "question": "Welches Lexware-Produkt in welcher Version nutzt der Kunde? LX-SPEC gilt für Warenwirtschaft ab 9.00 (Stand 2009); faktura+auftrag und aktuelle Versionen können abweichen.",
+      "impact": "Alle Abbildungen",
+      "resolution": "Produkt und Version beim Kunden erfragen; Integrationstest auf genau dieser Version"
+    },
+    {
+      "id": "OQ-02",
+      "topic": "Encoding",
+      "question": "UTF-8 (LX-SPEC-Empfehlung) oder ISO-8859-1 (REF)?",
+      "impact": "Umlaute, Sonderzeichen",
+      "resolution": "Test 4 und 4b in beiden Varianten"
+    },
+    {
+      "id": "OQ-03",
+      "topic": "Textnotation",
+      "question": "Verarbeitet die Zielinstallation CDATA (REF) und Entitäten (LX-SPEC) gleichwertig?",
+      "impact": "Sonderzeichen &, <, >, Anführungszeichen",
+      "resolution": "Test 5"
+    },
+    {
+      "id": "OQ-04",
+      "topic": "Datumsformat",
+      "question": "REF nutzt „JJJJ-MM-TT hh:mm:ss“, LX-SPEC zeigt ISO „JJJJ-MM-TTThh:mm:ss+01:00“. Akzeptiert Lexware beide?",
+      "impact": "Auftragsdatum",
+      "resolution": "Test 1 (REF-Format), Diagnose-Datei 1b (ISO)"
+    },
+    {
+      "id": "OQ-05",
+      "topic": "PRICE_LINE_AMOUNT",
+      "question": "Liest Lexware PRICE_LINE_AMOUNT bei Menge > 1 als Zeilensumme (openTRANS) oder als Einzelpreis? REF enthält nur Menge 1.",
+      "impact": "Falsche Preise um Faktor Menge",
+      "resolution": "Test 2 (Menge 3, Einzelpreis 10,00, Zeilensumme 30,00)"
+    },
+    {
+      "id": "OQ-06",
+      "topic": "Fehlender Preis",
+      "question": "Was passiert ohne ARTICLE_PRICE oder mit Preis 0? Positionspreise aus der Datei sind laut LX-SPEC 4.2.5.5 manuell.",
+      "impact": "Mailbestellungen nennen oft keinen Preis",
+      "resolution": "Diagnose-Dateien 6a/6b; bis dahin blockiert der Adapter Positionen ohne Preis"
+    },
+    {
+      "id": "OQ-07",
+      "topic": "Lieferadresse",
+      "question": "LX-SPEC: BUYER_PARTY wird in die Lieferadresse des Kunden übernommen, ergänzt aber nie. Erscheint eine abweichende Lieferadresse im Auftrag selbst?",
+      "impact": "Ware an falsche Adresse",
+      "resolution": "Test 3 mit neuem und mit bestehendem Kunden"
+    },
+    {
+      "id": "OQ-08",
+      "topic": "Kundenzuordnung",
+      "question": "PARTY_ID wird ignoriert; Zuordnung nur manuell im eBusiness-Dialog, sonst Neuanlage. Ist das für den Kunden-Workflow akzeptabel?",
+      "impact": "Doppelte Kunden in Lexware",
+      "resolution": "Workflow mit Anwender klären; Test 1 mit bestehendem Kunden"
+    },
+    {
+      "id": "OQ-09",
+      "topic": "Ländernamen",
+      "question": "COUNTRY braucht den Namen. Stimmen die Schreibweisen (Österreich, Schweiz, …) mit der Länderliste der Installation überein?",
+      "impact": "Falsches Land im Kundenstamm",
+      "resolution": "Test 3b mit Österreich"
+    },
+    {
+      "id": "OQ-10",
+      "topic": "Steuergebiet",
+      "question": "tax_area-Werte (Merchant/EU/Non_EU) und Schreibweise sind uneinheitlich dokumentiert.",
+      "impact": "Falsche Steuer bei Auslandskunden",
+      "resolution": "Bis zur Klärung blockiert der Adapter Rechnungsanschriften außerhalb des Lieferantenlandes"
+    },
+    {
+      "id": "OQ-11",
+      "topic": "Versandkosten",
+      "question": "REF überträgt Versand doppelt (Artikelzeile YT19VERUPS01 und REMARK). Soll Versand als REMARK (Nebenleistung) oder als Artikel übertragen werden?",
+      "impact": "Doppelte oder fehlende Versandkosten",
+      "resolution": "Mit Kunde klären; Test 7 mit und ohne gleichnamige Nebenleistung"
+    },
+    {
+      "id": "OQ-12",
+      "topic": "SEPA",
+      "question": "LX-SPEC kennt nur BLZ/Kontonummer. Wie werden IBAN/BIC übertragen?",
+      "impact": "Lastschrift ohne Bankdaten",
+      "resolution": "Adapter überträgt keine Bankdaten; Mandat muss in Lexware hinterlegt sein"
+    },
+    {
+      "id": "OQ-13",
+      "topic": "Feldlängen",
+      "question": "Maximale Längen der Lexware-Felder sind unbekannt. REF kürzt die Versandart auf 32 Zeichen.",
+      "impact": "Abgeschnittene Texte",
+      "resolution": "Test 5 mit langen Texten; bis dahin Warnung ab 32 Zeichen Versandart"
+    },
+    {
+      "id": "OQ-14",
+      "topic": "ORDER_ID",
+      "question": "Soll das Lexware-Feld „Bestellnummer“ die Kundenbestellnummer oder die interne Belegnummer tragen?",
+      "impact": "Zuordnung von Rückfragen",
+      "resolution": "Mit Kunde klären; Standard: Kundenbestellnummer, sonst Belegnummer"
+    },
+    {
+      "id": "OQ-15",
+      "topic": "Positionstexte",
+      "question": "DESCRIPTION_SHORT setzt Bezeichnung/Matchcode, DESCRIPTION_LONG den Positionstext. Gewünscht?",
+      "impact": "Überschriebene Artikeltexte",
+      "resolution": "Bis zur Klärung nicht gesendet"
+    },
+    {
+      "id": "OQ-16",
+      "topic": "Mandantenschutz",
+      "question": "REMARK origin_company_id würde Importe in falsche Mandanten verhindern; Position im ORDER_ITEM unbelegt.",
+      "impact": "Import in falschen Mandanten",
+      "resolution": "Diagnose-Datei nach Klärung der Firmen-Guid"
+    },
+    {
+      "id": "OQ-17",
+      "topic": "Referenzstatus",
+      "question": "Wurde REF tatsächlich erfolgreich importiert, und mit welcher Version?",
+      "impact": "Belastbarkeit der Referenz",
+      "resolution": "Bei Yellotools erfragen"
+    },
+    {
+      "id": "OQ-18",
+      "topic": "Netto/Brutto",
+      "question": "Passt ARTICLE_PRICE type (net_list/gros_list) zur Firmeneinstellung „Preise netto/brutto“? Umrechnung verursacht Rundungsdifferenzen (LX-SPEC 4.2.5).",
+      "impact": "Falsche Endbeträge",
+      "resolution": "Test 1 und 2 in der Zielfirma prüfen"
+    },
+    {
+      "id": "OQ-19",
+      "topic": "Unbekannte Artikelnummer",
+      "question": "LX-SPEC beschreibt einmal eine Rückfrage, einmal Abbruch.",
+      "impact": "Unvollständige Aufträge",
+      "resolution": "Adapter blockiert; Diagnose-Datei 9 zeigt das Lexware-Verhalten"
+    },
+    {
+      "id": "OQ-20",
+      "topic": "Sonderfälle",
+      "question": "Serien-/Chargenartikel erzeugen nur eine Auftragsbestätigung; negative Lagerbestände lösen Rückfragen aus.",
+      "impact": "Abweichender Belegtyp",
+      "resolution": "Im Test 10 einen Lagerartikel mit geringem Bestand verwenden"
+    },
+    {
+      "id": "OQ-21",
+      "topic": "Währung",
+      "question": "PRICE_CURRENCY ist dokumentiert, fehlt aber in REF. Ist es erforderlich?",
+      "impact": "Keine, solange nur EUR",
+      "resolution": "Adapter lässt nur EUR zu"
+    }
+  ]
+}

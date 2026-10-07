@@ -1,0 +1,8 @@
+# Direkte Abhängigkeiten des Windows-Builds. Gesperrt mit Prüfsummen in build-windows.lock
+# (tools/release/lock.py). Nur PySide6-Essentials: die Addons enthalten u. a. Qt WebEngine,
+# das nicht gebraucht wird und Installationsgröße und Angriffsfläche vervielfacht.
+defusedxml==0.7.1
+PySide6-Essentials==6.11.2
+keyring==25.7.0
+pyinstaller==6.22.3
+pyinstaller-hooks-contrib==2026.8

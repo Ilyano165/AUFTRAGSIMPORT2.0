@@ -1,0 +1,25 @@
+{
+  "test": "06",
+  "title": "Fehlender Preis",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "06a-ohne-preis.xml",
+    "06b-preis-null.xml"
+  ],
+  "export_blocked_by_product": [
+    "EXP_PRICE_MISSING: Position 1: kein Preis aus Mail oder Katalog; das Lexware-Verhalten ohne Preis ist ungeklärt (OQ-06)"
+  ],
+  "product_notes": [],
+  "open_questions": [
+    "OQ-06"
+  ],
+  "input": {
+    "document_number": "IT-2026-000006",
+    "customer_reference": "IT-06",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Rechnung",
+    "lines": 1
+  }
+}

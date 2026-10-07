@@ -1,0 +1,26 @@
+{
+  "test": "01",
+  "title": "Einfache Bestellung",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "IT-2026-000001.xml",
+    "01b-datum-iso.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [],
+  "open_questions": [
+    "OQ-01",
+    "OQ-04",
+    "OQ-08",
+    "OQ-17"
+  ],
+  "input": {
+    "document_number": "IT-2026-000001",
+    "customer_reference": "IT-01",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Rechnung",
+    "lines": 1
+  }
+}

@@ -1,0 +1,9 @@
+# Prüfwerkzeuge für die Build-Pipeline (Tests, Lint, Typprüfung, Audit).
+# Versionen identisch mit [project.optional-dependencies] dev in pyproject.toml
+# (tests/unit/test_release_audit.py prüft das).
+pytest==9.1.1
+pytest-cov==7.1.0
+ruff==0.16.10
+mypy==2.4.0
+types-defusedxml==0.7.0.20260504
+pip-audit==2.10.1

@@ -1,0 +1,415 @@
+{
+  "248090.xml": {
+    "sha256": "4abe421990a9473d6666f3989cadce5348848fc836f3d475664d9b0d3693d3d5",
+    "size": 5127,
+    "xml_version": "1.0",
+    "encoding": "ISO-8859-1",
+    "line_ending": "CRLF",
+    "cdata_values": 67,
+    "root": "ORDER_LIST",
+    "namespaces": [
+      "(keiner)",
+      "http://www.opentrans.org/XMLSchema/1.0"
+    ],
+    "elements": [
+      {
+        "path": "ORDER_LIST",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/CONTROL_INFO",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/CONTROL_INFO/GENERATOR_INFO",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/CONTROL_INFO/GENERATOR_DATE",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_ID",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_DATE",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/NAME",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/NAME2",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/NAME3",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/STREET",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/CITY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/ZIP",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/COUNTRY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/PHONE",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/FAX",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/EMAIL",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/VAT_ID",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/NAME",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/NAME2",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/NAME3",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/STREET",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/CITY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/ZIP",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/COUNTRY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/PHONE",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/FAX",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/EMAIL",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/VAT_ID",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/NAME",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/NAME2",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/NAME3",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/STREET",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/CITY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/ZIP",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/COUNTRY",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/PHONE",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/FAX",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/EMAIL",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/VAT_ID",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/HOLDER",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/BANK_NAME",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/BANK_CODE",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/BANK_ACCOUNT",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/PAYMENT_TERM",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/REMARK",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/LINE_ITEM_ID",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_ID",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_ID/SUPPLIER_AID",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_ID/DESCRIPTION_LONG",
+        "count": 1
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/QUANTITY",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ORDER_UNIT",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE/TAX",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE/PRICE_AMOUNT",
+        "count": 3
+      },
+      {
+        "path": "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE/PRICE_LINE_AMOUNT",
+        "count": 3
+      }
+    ],
+    "attributes": {
+      "ORDER_LIST/ORDER": [
+        "type=standard",
+        "version=1.0"
+      ],
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/PAYMENT_TERM": [
+        "TYPE=unece"
+      ],
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/REMARK": [
+        "type=delivery_method",
+        "type=order",
+        "type=shipping_fee"
+      ],
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE": [
+        "type=net_list"
+      ]
+    },
+    "value_formats": {
+      "ORDER_LIST/ORDER/ORDER_HEADER/CONTROL_INFO/GENERATOR_DATE": {
+        "Datum Zeit (Leerzeichen)": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_ID": {
+        "Ganzzahl": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_DATE": {
+        "Datum Zeit (Leerzeichen)": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/ZIP": {
+        "Ganzzahl": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/FAX": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/BUYER_PARTY/PARTY/ADDRESS/VAT_ID": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/ZIP": {
+        "Ganzzahl": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/FAX": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/INVOICE_PARTY/PARTY/ADDRESS/VAT_ID": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/ZIP": {
+        "Ganzzahl": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/FAX": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/ORDER_PARTIES/SUPPLIER_PARTY/PARTY/ADDRESS/VAT_ID": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/HOLDER": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/BANK_NAME": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/BANK_CODE": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/BANK_ACCOUNT": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/PAYMENT/ACCOUNT/PAYMENT_TERM": {
+        "Ganzzahl": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/REMARK": {
+        "Text": 1,
+        "Dezimal (Punkt)": 1,
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/LINE_ITEM_ID": {
+        "Ganzzahl": 3
+      },
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_ID/DESCRIPTION_LONG": {
+        "leer": 1
+      },
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/QUANTITY": {
+        "Dezimal (Punkt)": 1,
+        "Ganzzahl": 2
+      },
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ORDER_UNIT": {
+        "leer": 3
+      },
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE/TAX": {
+        "Dezimal (Punkt)": 3
+      },
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE/PRICE_AMOUNT": {
+        "Dezimal (Punkt)": 3
+      },
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_PRICE/PRICE_LINE_AMOUNT": {
+        "Dezimal (Punkt)": 3
+      }
+    },
+    "article_price_child_orders": [
+      "PRICE_AMOUNT/PRICE_LINE_AMOUNT/TAX",
+      "TAX/PRICE_AMOUNT/PRICE_LINE_AMOUNT"
+    ],
+    "parties_identical": true,
+    "notes": [
+      "ORDER_LIST/ORDER/ORDER_HEADER/ORDER_INFO/REMARK: Wert endet abrupt („United Parcel Service Standard (“), mögliche Kürzung",
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM/ARTICLE_ID/SUPPLIER_AID: Platzhalterwert „XXXX“"
+    ],
+    "conformance": [
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM[1]/ARTICLE_PRICE/PRICE_AMOUNT: Falsche Reihenfolge: steht nach TAX",
+      "ORDER_LIST/ORDER/ORDER_ITEM_LIST/ORDER_ITEM[1]/ARTICLE_PRICE/PRICE_LINE_AMOUNT: Falsche Reihenfolge: steht nach TAX"
+    ]
+  }
+}

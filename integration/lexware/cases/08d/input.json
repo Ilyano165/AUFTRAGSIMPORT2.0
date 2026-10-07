@@ -1,0 +1,22 @@
+{
+  "test": "08d",
+  "title": "Zahlungsart Barzahlung",
+  "encoding": "UTF-8",
+  "notation": "cdata",
+  "files": [
+    "IT-2026-00008d.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [
+    "EXP_PRICE_FROM_CATALOG: Preis aus dem Artikelkatalog für Position(en) 1; Lexware übernimmt Preise aus der Datei als manuelle Positionspreise"
+  ],
+  "open_questions": [],
+  "input": {
+    "document_number": "IT-2026-00008d",
+    "customer_reference": "IT-08d",
+    "invoice_address": "Testkunde Lexware GmbH, 50667 Köln",
+    "delivery_same_as_invoice": true,
+    "payment": "Barzahlung",
+    "lines": 1
+  }
+}

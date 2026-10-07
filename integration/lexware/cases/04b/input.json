@@ -1,0 +1,24 @@
+{
+  "test": "04b",
+  "title": "Umlaute ISO-8859-1",
+  "encoding": "ISO-8859-1",
+  "notation": "cdata",
+  "files": [
+    "IT-2026-00004b.xml"
+  ],
+  "export_blocked_by_product": [],
+  "product_notes": [
+    "EXP_PRICE_FROM_CATALOG: Preis aus dem Artikelkatalog für Position(en) 1; Lexware übernimmt Preise aus der Datei als manuelle Positionspreise"
+  ],
+  "open_questions": [
+    "OQ-02"
+  ],
+  "input": {
+    "document_number": "IT-2026-00004b",
+    "customer_reference": "IT-04b",
+    "invoice_address": "Bäckerei Größe & Söhne GmbH, 41061 Mönchengladbach",
+    "delivery_same_as_invoice": true,
+    "payment": "Rechnung",
+    "lines": 1
+  }
+}
